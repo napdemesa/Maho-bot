@@ -4,6 +4,10 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install aiohttp
+  - pip install aiodns
+  - pip install websockets
+  - pip install pynacl
   - pip install discord.py
 # command to run tests
 script:
