@@ -1,17 +1,9 @@
 language: python
 python:
-  - "3.4"
-  - "3.5"
-  - "3.5-dev"  # 3.5 development branch
   - "3.6"
   - "3.6-dev"
-  - "3.7-dev"
 # command to install dependencies
 install:
-  - pip install aiohttp
-  - pip install aiodns
-  - pip install websockets
-  - pip install pynacl
   - pip install discord.py
 # command to run tests
 script:
