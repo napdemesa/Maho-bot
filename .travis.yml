@@ -6,4 +6,4 @@ install:
   - pip install discord.py
 # command to run tests
 script:
-  - python Maho-bot.py
+  - python Maho_bot_test.py
