@@ -24,7 +24,7 @@ def turn_server_on(instance_status):
         else:
             print('minecraft server is offline... starting up server...')
             try:
-                os.system('bash run_server.sh')
+                os.system('bash /home/ec2-user/Maho-bot/mc_server/run_server.sh')
                 check_minecraft_server_status()
             except Exception as e:
                 print(e)

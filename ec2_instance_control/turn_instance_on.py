@@ -24,10 +24,10 @@ def check_instance_status(instance_id):
     try:
         if response['InstanceStatuses'][0]['InstanceState']['Name'] == 'running':
             instance_online = True
-            print('server online')
+            print('instance online')
     except Exception:
         instance_online = False
-        print('server offline')
+        print('instance offline')
 
     return instance_online
 
