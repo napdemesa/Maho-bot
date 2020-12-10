@@ -1,3 +1,4 @@
+import os
 import json
 
 import boto3
@@ -88,7 +89,10 @@ def main():
             print('minecraft server is online')
         else:
             print('minecraft server is offline... starting up server...')
-            
+            os.system('java -Xmx1024M -Xms1024M -jar server.jar nogui')
+            while not check_minecraft_server_status():
+                print('waiting for server to load...')
+            check_minecraft_server_status()
 
     turn_instance_on(instance_id['INSTANCE_ID'])
     turn_instance_off(instance_id['INSTANCE_ID'])
