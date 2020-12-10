@@ -4,7 +4,8 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 from mcstatus import MinecraftServer
-from mc_server import turn_mc_server_on as mcs
+sys.path.insert(0, '/home/ec2-user/Maho-bot/mc_server')
+import turn_mc_server_on as mcs
 
 
 def get_instance_id(path):
