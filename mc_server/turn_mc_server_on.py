@@ -1,6 +1,6 @@
 import os
 from mcstatus import MinecraftServer
-from ec2_instance_control import turn_instance_on as tio
+#from ec2_instance_control import turn_instance_on as tio
 
 
 def check_minecraft_server_status():
