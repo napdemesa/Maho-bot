@@ -94,8 +94,8 @@ def main():
                 print('waiting for server to load...')
             check_minecraft_server_status()
 
-    turn_instance_on(instance_id['INSTANCE_ID'])
-    turn_instance_off(instance_id['INSTANCE_ID'])
+    #turn_instance_on(instance_id['INSTANCE_ID'])
+    #turn_instance_off(instance_id['INSTANCE_ID'])
 
     #check_minecraft_server_status()
 
