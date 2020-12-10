@@ -23,12 +23,9 @@ def turn_server_on(instance_status):
             print('minecraft server is online')
         else:
             print('minecraft server is offline... starting up server...')
-            os.system('java -Xmx1024M -Xms1024M -jar /home/ec2-user/Maho-bot/mc_server/server.jar nogui')
-            idx = 0
-            animation = "|/-\\"
-            while not check_minecraft_server_status():
-                print(animation[idx % len(animation)], end="\r")
-                idx += 1
-                time.sleep(0.1)
-                #print('waiting for server to load...')
-            check_minecraft_server_status()
+            try:
+                os.system('java -Xmx1024M -Xms1024M -jar /home/ec2-user/Maho-bot/mc_server/server.jar nogui')
+                check_minecraft_server_status()
+            except Exception as e:
+                print(e)
+            
