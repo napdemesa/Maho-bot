@@ -60,6 +60,7 @@ class Maho(discord.Client):
 			await channel.send('Attempting to turn server on...')
 			try:
 				instance_status, instance_message, instance_ip = ec2.check_instance_status()
+				print(instance_ip)
 				server_status, message = mcs.turn_server_on(instance_status, instance_ip)
 				if server_status:
 					await channel.send('The server is now online!')
