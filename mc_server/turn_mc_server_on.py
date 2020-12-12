@@ -44,10 +44,10 @@ def turn_server_on(instance_status, instance_ip):
                 ssh.connect(hostname=instance_ip, username="ec2-user", pkey=key)
                 print('connected to instance')
                 #stdin, stdout, stderr = 
-                stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh', timeout=10)
+                stdin, stdout, stderr = ssh.exec_command('nohup bash /home/ec2-user/server/run_server.sh &')
                 print('executed')
-                stdout.channel.shutdown_read()
-                stdout.channel.close()
+                #stdout.channel.shutdown_read()
+                #stdout.channel.close()
                 #while stdout.channel.recv_exit_status() != -1:
                 #    print('okay...')
 
@@ -55,22 +55,8 @@ def turn_server_on(instance_status, instance_ip):
                 #    print('OKAY')
 
                 print(':eyes:')
-                #endtime = time.time() + timeout
-                #while True:
-                #    line = stdout.readline()
-                #    if not line:
-                #        break
-                #    print(line, end="")
-                #while not stdout.channel.eof_received:
-                #    time.sleep(1)
-                #    if time.time() > endtime:
-                #        stdout.channel.close()
-                #        break
-                #print(stdout.read())
                 ssh.close()
                 time.sleep(30)
-                #os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
-                #os.system('bash /home/ec2-user/server/run_server.sh')
                 status, message = check_minecraft_server_status(instance_ip)
                 print(message)
                 if status:
