@@ -53,15 +53,15 @@ class Maho(discord.Client):
 
 		if message.content.startswith('$mcss'):
 			instance_status, instance_message, instance_ip = ec2.check_instance_status()
-			mcss, message = mcs.check_minecraft_server_status(instance_ip)
+			mcss, message = mcs.check_minecraft_server_status(instance_ip[4:])
 			await channel.send(message)
 
 		if message.content.startswith('$mc_server_on'):
 			await channel.send('Attempting to turn server on...')
 			try:
 				instance_status, instance_message, instance_ip = ec2.check_instance_status()
-				print(instance_ip)
-				server_status, message = mcs.turn_server_on(instance_status, instance_ip)
+				#print(instance_ip)
+				server_status, message = mcs.turn_server_on(instance_status, instance_ip[4:])
 				if server_status:
 					await channel.send('The server is now online!')
 					await channel.send(message)
