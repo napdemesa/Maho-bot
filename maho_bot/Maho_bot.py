@@ -3,9 +3,9 @@ import asyncio
 import random
 import sys
 
-sys.path.insert(0, '/Users/nap/maho/Maho-bot/ec2_instance_control')
+sys.path.insert(0, '/home/ec2-user/Maho-bot/ec2_instance_control')
 import turn_instance_on as ec2
-sys.path.insert(0, '/Users/nap/maho/Maho-bot/mc_server')
+sys.path.insert(0, '/home/ec2-user/Maho-bot/mc_server')
 import turn_mc_server_on as mcs
 
 
