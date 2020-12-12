@@ -43,12 +43,13 @@ def turn_server_on(instance_status, instance_ip):
                 print('connected to instance')
                 stdin, stdout, stderr = client.exec_command('bash /home/ec2-user/server/run_server.sh')
                 print('executed')
-                #print(stdout.read())
+                print(stdout.read())
                 client.close()
+                time.sleep(30)
                 #os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
                 #os.system('bash /home/ec2-user/server/run_server.sh')
                 status, message = check_minecraft_server_status(instance_ip)
-                print('checked')
+                print(message)
                 if status:
                     return status, message
                 else:
