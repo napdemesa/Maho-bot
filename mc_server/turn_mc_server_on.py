@@ -1,6 +1,7 @@
 import os
 import time
 import sys
+import paramiko
 from mcstatus import MinecraftServer
 #from ec2_instance_control import turn_instance_on as tio
 sys.path.insert(0, '/home/ec2-user/Maho-bot/ec2_instance_control')
@@ -33,8 +34,14 @@ def turn_server_on(instance_status, instance_ip):
             print('minecraft server is offline... starting up server...')
             try:
                 print(instance_ip)
-                os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
-                os.system('bash /home/ec2-user/server/run_server.sh')
+                key = paramiko.RSAKey.from_private_key_file('mc_server.pem')
+                client = paramiko.SSHClient()
+                client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                client.connect(hostname=instance_ip, username="ec2-user", pkey=key)
+                stdin, stdout, stderr = client.exec_command('bash /home/ec2-user/server/run_server.sh')
+                print stdout.read()
+                #os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
+                #os.system('bash /home/ec2-user/server/run_server.sh')
                 status, message = check_minecraft_server_status(instance_ip)
                 if status:
                     return status, message
