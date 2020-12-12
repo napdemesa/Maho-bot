@@ -50,12 +50,14 @@ class Maho(discord.Client):
 			else:
 				msg = 'Instance did not turn off... Please inform nap. \n{mess}'.format(message, mess=response)
 				await channel.send(msg)
-		
+
 		if message.content.startswith('$mcss'):
-			mcss, message = mcs.check_minecraft_server_status()
+			instance_status, instance_message, instance_ip = ec2.check_instance_status()
+			mcss, message = mcs.check_minecraft_server_status(instance_ip)
 			await channel.send(message)
 
 		if message.content.startswith('$mc_server_on'):
+			await channel.send('Attempting to turn server on...')
 			try:
 				instance_status, instance_message, instance_ip = ec2.check_instance_status()
 				server_status, message = mcs.turn_server_on(instance_status, instance_ip)
@@ -64,4 +66,4 @@ class Maho(discord.Client):
 					await channel.send(message)
 			except Exception:
 				await channel.send("Couldn't turn server on.")
-
+				await channel.send(message)
