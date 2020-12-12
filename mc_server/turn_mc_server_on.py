@@ -24,6 +24,8 @@ def check_minecraft_server_status(instance_ip):
 
 
 def turn_server_on(instance_status, instance_ip):
+    timeout = 30
+
     if instance_status:
         print(instance_ip)
         #instance_status, instance_message, instance_ip = ec2.check_instance_status()
@@ -43,7 +45,18 @@ def turn_server_on(instance_status, instance_ip):
                 print('connected to instance')
                 stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh')
                 print('executed')
-                print(stdout.read())
+                #endtime = time.time() + timeout
+                while True:
+                    line = stdout.readline()
+                    if not line:
+                        break
+                    print(line, end="")
+                #while not stdout.channel.eof_received:
+                #    time.sleep(1)
+                #    if time.time() > endtime:
+                #        stdout.channel.close()
+                #        break
+                #print(stdout.read())
                 ssh.close()
                 time.sleep(30)
                 #os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
