@@ -38,7 +38,7 @@ def turn_server_on(instance_status, instance_ip):
                 client = paramiko.SSHClient()
                 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 print('key works')
-                client.connect(hostname=instance_ip, username="ec2-user", pkey=key)
+                client.connect(hostname=instance_ip[4:], username="ec2-user", pkey=key)
                 print('connected to instance')
                 stdin, stdout, stderr = client.exec_command('bash /home/ec2-user/server/run_server.sh')
                 print('executed')
