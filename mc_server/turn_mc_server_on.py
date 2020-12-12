@@ -34,7 +34,7 @@ def turn_server_on(instance_status, instance_ip):
             print('minecraft server is offline... starting up server...')
             try:
                 print(instance_ip)
-                key = paramiko.RSAKey.from_private_key_file('mc_server.pem')
+                key = paramiko.RSAKey.from_private_key_file('/home/ec2-user/Maho-bot/maho_bot/mc_server.pem')
                 client = paramiko.SSHClient()
                 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 print('key works')
