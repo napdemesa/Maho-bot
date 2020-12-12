@@ -2,11 +2,13 @@ import os
 import time
 from mcstatus import MinecraftServer
 #from ec2_instance_control import turn_instance_on as tio
+sys.path.insert(0, '/Users/nap/maho/Maho-bot/ec2_instance_control')
+import turn_instance_on as ec2
 
 
-def check_minecraft_server_status():
-    server = MinecraftServer.lookup("3.129.206.49")
+def check_minecraft_server_status(instance_ip):
     try:
+        server = MinecraftServer.lookup(instance_ip)
         status = server.status()
         message = f"The server has {status.players.online} players and replied in {status.latency} ms"
         mc_server_online = True
@@ -21,14 +23,17 @@ def check_minecraft_server_status():
 
 def turn_server_on(instance_status, instance_ip):
     if instance_status:
-        if check_minecraft_server_status():
+        instance_status, instance_message, instance_ip = ec2.check_instance_status()
+        status, message = ec2.turn_server_on(instance_status, instance_ip)
+        if status:
             print('minecraft server is online')
+            return status, message
         else:
             print('minecraft server is offline... starting up server...')
             try:
                 os.system(f"ssh -i 'minecraft_server_key.pem' ec2-user@{instance_ip}")
                 os.system('bash /home/ec2-user/server/run_server.sh')
-                status, message = check_minecraft_server_status()
+                status, message = check_minecraft_server_status(instance_ip)
                 if status:
                     return status, message
                 else:
