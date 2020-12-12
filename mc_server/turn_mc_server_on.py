@@ -54,18 +54,14 @@ def turn_server_on(instance_status, instance_ip):
                     if not line:
                         break
                     print(line, end='')
-                #stdout.channel.shutdown_read()
-                #stdout.channel.close()
-                #while stdout.channel.recv_exit_status() != -1:
-                #    print('okay...')
-
-                #if not stdout.channel.exit_status_ready():
-                #    print('OKAY')
 
                 print(':eyes:')
                 ssh.close()
-                time.sleep(30)
-                status, message = check_minecraft_server_status(instance_ip)
+
+                while True:
+                    status, message = check_minecraft_server_status(instance_ip)
+                    if status:
+                        break
                 print(message)
                 if status:
                     return status, message
