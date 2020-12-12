@@ -45,12 +45,14 @@ def turn_server_on(instance_status, instance_ip):
                 print('connected to instance')
                 stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh')
                 print('executed')
+                stdout.channel.recv_exit_status()
+                print(':eyes:')
                 #endtime = time.time() + timeout
-                while True:
-                    line = stdout.readline()
-                    if not line:
-                        break
-                    print(line, end="")
+                #while True:
+                #    line = stdout.readline()
+                #    if not line:
+                #        break
+                #    print(line, end="")
                 #while not stdout.channel.eof_received:
                 #    time.sleep(1)
                 #    if time.time() > endtime:
