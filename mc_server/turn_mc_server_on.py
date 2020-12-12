@@ -46,6 +46,8 @@ def turn_server_on(instance_status, instance_ip):
                 #stdin, stdout, stderr = 
                 stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh', timeout=10)
                 print('executed')
+                if stdout.channel.recv_exit_status() == -1:
+                    print('okay...')
                 print(stdout.channel.recv_exit_status())
                 #if not stdout.channel.exit_status_ready():
                 #    print('OKAY')
