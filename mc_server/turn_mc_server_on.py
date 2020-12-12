@@ -33,7 +33,7 @@ def turn_server_on(instance_status, instance_ip):
             print('minecraft server is offline... starting up server...')
             try:
                 print(instance_ip)
-                os.system(f"ssh -i 'minecraft_server_key.pem' ec2-user@{instance_ip[4:]}")
+                os.system(f"ssh -i 'mc_server.pem' ec2-user@{instance_ip[4:]}")
                 os.system('bash /home/ec2-user/server/run_server.sh')
                 status, message = check_minecraft_server_status(instance_ip)
                 if status:
