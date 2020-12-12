@@ -44,7 +44,7 @@ def turn_server_on(instance_status, instance_ip):
                 ssh.connect(hostname=instance_ip, username="ec2-user", pkey=key)
                 print('connected to instance')
                 #stdin, stdout, stderr = 
-                stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh')
+                stdin, stdout, stderr = ssh.exec_command('bash /home/ec2-user/server/run_server.sh', timeout=10)
                 print('executed')
                 print(stdout.channel.recv_exit_status())
                 #if not stdout.channel.exit_status_ready():
