@@ -43,13 +43,10 @@ def turn_server_on(instance_status, instance_ip):
                 print('key works')
                 ssh.connect(hostname=instance_ip, username="ec2-user", pkey=key)
                 print('connected to instance')
-                #stdin, stdout, stderr = 
-                #stdin, stdout, stderr = ssh.exec_command('yes')
-                #print(stdout.read())
 
                 stdin, stdout, stderr = ssh.exec_command('nohup bash /home/ec2-user/server/run_server.sh &')
                 print('executed')
-                #stdout.channel.recv_exit_status()
+
                 while True:
                     line = stdout.readline()
                     if line:
@@ -58,7 +55,6 @@ def turn_server_on(instance_status, instance_ip):
                         break
                     print(line, end='')
 
-                print(':eyes:')
                 ssh.close()
 
                 while True:
