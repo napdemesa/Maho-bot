@@ -46,6 +46,14 @@ def turn_server_on(instance_status, instance_ip):
                 #stdin, stdout, stderr = 
                 stdin, stdout, stderr = ssh.exec_command('nohup bash /home/ec2-user/server/run_server.sh &')
                 print('executed')
+                #stdout.channel.recv_exit_status()
+                while True:
+                    line = stdout.readline()
+                    if line:
+                        break
+                    if not line:
+                        break
+                    print(line, end='')
                 #stdout.channel.shutdown_read()
                 #stdout.channel.close()
                 #while stdout.channel.recv_exit_status() != -1:
