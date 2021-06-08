@@ -11,7 +11,6 @@ def get_instance_id(path):
     return json.loads(param['Parameter']['Value'])
 
 def main():
-    #token = input('Enter Discord bot token for Maho: ')
     creds = get_instance_id('minecraft')
     client = Maho()
     client.run(creds['maho_bot_token'])
