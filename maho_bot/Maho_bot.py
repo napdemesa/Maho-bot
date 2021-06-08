@@ -37,10 +37,7 @@ class Maho(discord.Client):
 			await channel.send('Attempting to turn server on...')
 			turn_instance_on, response= ec2.turn_instance_on()
 			if turn_instance_on:
-				await channel.send('''Instance is now online! Now hold your horses you fucking bitch! 
-										Just like a computer, a server needs to boot up! 
-										Wait at least 30 seconds before trying to turn the minecraft 
-										server on to prevent any issues with the AWS instance!''')
+				await channel.send('''Instance is now online! DO NOT TURN SERVER ON DUDE! Just like a computer, a server needs to boot up! Wait at least 30 seconds before trying to turn the minecraft server on to prevent any issues with the AWS instance!''')
 			else:
 				msg = 'Instance did not turn on... Please inform nap. \n{mess}'.format(message, mess=response)
 				await channel.send(msg)

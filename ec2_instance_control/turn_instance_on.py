@@ -2,12 +2,8 @@ import os
 import sys
 import json
 import boto3
-#import paramiko
-from botocore.exceptions import ClientError
-#from mcstatus import MinecraftServer
 
-#sys.path.insert(0, '/home/ec2-user/Maho-bot/mc_server')
-#import turn_mc_server_on as mcs
+from botocore.exceptions import ClientError
 
 
 def get_instance_id(path):
@@ -25,7 +21,6 @@ def check_instance_status():
 
     response = ec2.describe_instance_status(InstanceIds=[instance_id])
     try:
-        #print(response)
         if response['InstanceStatuses'][0]['InstanceState']['Name'] == 'running':
             instance_online = True
             another_response = ec2.describe_instances(InstanceIds=[instance_id])
@@ -79,18 +74,3 @@ def turn_instance_off():
         print(e)
         return False
 
-
-#def main():
-#    instance_id = get_instance_id('minecraft')
-#    instance_status = check_instance_status(instance_id['INSTANCE_ID'])
-
-    #mcs.turn_server_on(instance_status)
-
-    #turn_instance_on(instance_id['INSTANCE_ID'])
-    #turn_instance_off(instance_id['INSTANCE_ID'])
-
-    #check_minecraft_server_status()
-
-
-#if __name__ == "__main__":
-#    main()
