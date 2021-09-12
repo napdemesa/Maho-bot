@@ -141,7 +141,7 @@ async def play(ctx, url : str):
 	for file in os.listdir("/home/ec2-user/Maho-bot/maho_bot"):
 		if file.endswith(".mp3"):
 			os.rename(file, "song.mp3")
-	voice.play(discord.FFmpegPCMAudio("song.mp3"))
+	voice.play(discord.FFmpegPCMAudio("/home/ec2-user/Maho-bot/maho_bot/song.mp3"))
 
 
 @maho.command(name='pause')
