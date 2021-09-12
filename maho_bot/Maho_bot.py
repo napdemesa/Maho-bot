@@ -139,7 +139,7 @@ async def play(ctx, url : str):
     }
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
 		ydl.download([url])
-	for file in os.listdir("./"):
+	for file in os.listdir("/home/ec2-user/Maho-bot/maho_bot"):
 		if file.endswith(".mp3"):
 			os.rename(file, "song.mp3")
 	voice.play(discord.FFmpegPCMAudio("song.mp3"))
@@ -148,8 +148,8 @@ async def play(ctx, url : str):
 @maho.command(name='pause')
 async def pause(ctx):
 	voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
-	if voice_client.is_playing():
-		await voice_client.pause()
+	if voice.is_playing():
+		await voice.pause()
 	else:
 		await ctx.send("The bot is not playing anything at the moment.")
     
