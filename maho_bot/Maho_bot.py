@@ -88,7 +88,6 @@ async def on_message(message):
 		await channel.send('Attempting to turn server on...')
 		try:
 			instance_status, instance_message, instance_ip = ec2.check_instance_status()
-			#print(instance_ip)
 			server_status, message = mcs.turn_server_on(instance_status, instance_ip[4:])
 			if server_status:
 				await channel.send('The server is now online!')
@@ -136,7 +135,7 @@ async def play(ctx, url : str):
             'preferredcodec': 'mp3',
             'preferredquality': '192',
         }],
-    }
+	}
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
 		ydl.download([url])
 	for file in os.listdir("/home/ec2-user/Maho-bot/maho_bot"):
