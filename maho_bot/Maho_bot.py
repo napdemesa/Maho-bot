@@ -30,14 +30,9 @@ def get_instance_id(path):
 	return json.loads(param['Parameter']['Value'])
 
 
-#def main():
 creds = get_instance_id('minecraft')
 intents = discord.Intents().all()
-#client = discord.Client(intents=intents)
 maho = commands.Bot(command_prefix='$', intents=intents)
-
-
-
 
 
 @maho.event
@@ -105,19 +100,6 @@ async def on_message(message):
 	await maho.process_commands(message)
 
 
-"""@maho.command()
-async def join(ctx, url : str):
-	voice_channel = discord.utils.get(ctx.guild.voice_channels, name='General')
-	voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
-	#if not ctx.message.author.voice:
-	#	await ctx.send("{} is not connected to a voice channel".format(ctx.message.author.name))
-	#	return
-	#else:
-	#	channel = ctx.message.author.voice.channel
-	if not voice.is_connected():
-		await voice_channel.connect()"""
-
-
 @maho.command(name='join', help='Tells the bot to join the voice channel')
 async def join(ctx):
     if not ctx.message.author.voice:
@@ -130,26 +112,11 @@ async def join(ctx):
 
 @maho.command(name='leave', help='To make the bot leave the voice channel')
 async def leave(ctx):
-	voice_client = ctx.message.guild.voice_client
-	if voice_client.is_connected():
-		await voice_client.disconnect()
-	else:
-		await ctx.send("The bot is not connected to a voice channel.")
-
-
-"""@maho.command(name='play_song', help='To play song')
-async def play(ctx, url):
-    try :
-        server = ctx.message.guild
-        voice_channel = server.voice_client
-
-        async with ctx.typing():
-            filename = await ytdl.YTDLSource.from_url(url, loop=maho.loop)
-            voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))
-        await ctx.send('**Now playing:** {}'.format(filename))
-    except:
+    voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
+    if voice.is_connected():
+        await voice.disconnect()
+    else:
         await ctx.send("The bot is not connected to a voice channel.")
-"""
 
 
 @maho.command(name='play')
@@ -180,25 +147,25 @@ async def play(ctx, url : str):
 
 @maho.command(name='pause')
 async def pause(ctx):
-    voice_client = ctx.message.guild.voice_client
-    if voice_client.is_playing():
-        await voice_client.pause()
-    else:
-        await ctx.send("The bot is not playing anything at the moment.")
+	voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
+	if voice_client.is_playing():
+		await voice_client.pause()
+	else:
+		await ctx.send("The bot is not playing anything at the moment.")
     
 @maho.command(name='resume')
 async def resume(ctx):
-    voice_client = ctx.message.guild.voice_client
-    if voice_client.is_paused():
-        await voice_client.resume()
+    voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
+    if voice.is_paused():
+        await voice.resume()
     else:
         await ctx.send("The bot was not playing anything before this. Use play_song command")
 
 @maho.command(name='stop')
 async def stop(ctx):
-    voice_client = ctx.message.guild.voice_client
-    if voice_client.is_playing():
-        await voice_client.stop()
+    voice = discord.utils.get(maho.voice_clients, guild=ctx.guild)
+    if voice.is_playing():
+        await voice.stop()
     else:
         await ctx.send("The bot is not playing anything at the moment.")
 
